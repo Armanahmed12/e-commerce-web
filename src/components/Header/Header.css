@@ -1,6 +1,6 @@
-@media only screen and (min-width: 768px) {
-    
+ul li:hover{
 
+      color: #00f7ff;
 }
 
 /* style for mobile and teblet devices */
@@ -13,7 +13,7 @@
        ul li:hover{
 
             background-color: #095e64;
-            color: white;
+            color: #01f7ff;
 
        }
        ul li:last-child{
