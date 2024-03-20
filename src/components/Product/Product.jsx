@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 
 const Product = (props) => {
+
     // function prop from shopping component
     const getTheProduct = props.getTheProduct;
     const imgRef = useRef('img-ref');
@@ -15,8 +16,8 @@ const Product = (props) => {
      }),[]);
       
     return (
-        <div className='border-2 border-solid border-[#1c2b35] rounded-lg flex flex-col h-[360px]'>
-            <img ref={imgRef} className='p-2 rounded-2xl h-3/6' src={img} alt="" />
+        <div className='border-2 border-solid border-[#1c2b35] h-[470px] rounded-lg flex flex-col'>
+            <img ref={imgRef} className='p-2 rounded-2xl' src={img} alt="" />
             <div className='px-2 pb-3 flex-1'>
                 <h2 className='font-bold text-[#037ac9]'>{name}</h2>
                 <h4 className='font-medium'>Price : ${price}</h4>

@@ -23,6 +23,7 @@ const Shop = () => {
       setShoppingProduct(id);
       const selectedCartProducts = getAllSelectedProducts(products);
       setSelectedCartProducts(selectedCartProducts);
+      alert("This product has been added.")
      
  }
 
@@ -30,6 +31,7 @@ const Shop = () => {
   const removeTheCartData = () => {
 
      setSelectedCartProducts([]);
+     localStorage.removeItem('shoppingCart');
 
   } 
     return (
@@ -47,7 +49,7 @@ const Shop = () => {
                         event.target.style.display = 'none';
                    }} className='bg-[#1c2b35] hover:bg-[#024774] font-bold text-white text-center mx-auto md:w-1/5 w-2/5 md:col-span-3 inline-block py-2 px-5 rounded-md my-4'>See More</button>
             </div>
-            <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[360px] order-1 md:order-2 mb-4 md:my-0 '>
+            <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[420px] order-1 md:order-2 mb-4 md:my-0 '>
                 <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts}/>
             </div>
         </div>
