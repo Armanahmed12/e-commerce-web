@@ -23,11 +23,18 @@ const Shop = () => {
       setShoppingProduct(id);
       const selectedCartProducts = getAllSelectedProducts(products);
       setSelectedCartProducts(selectedCartProducts);
-      console.log(selectedCartProducts);   
+     
  }
+
+// this function will delete all the cart Component data and make an empty cart.
+  const removeTheCartData = () => {
+
+     setSelectedCartProducts([]);
+
+  } 
     return (
         <div className='grid grid-cols-4 md:p-5 p-2'>
-            <div className="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 col-span-4 md:col-span-3">
+            <div className="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 col-span-4 md:col-span-3 order-2 md:order-1">
 
                 {
                     sixProducts.map(product => <Product getTheProduct={getTheClickedProduct} key={product.id} product={product}/>)
@@ -40,8 +47,8 @@ const Shop = () => {
                         event.target.style.display = 'none';
                    }} className='bg-[#1c2b35] hover:bg-[#024774] font-bold text-white text-center mx-auto md:w-1/5 w-2/5 md:col-span-3 inline-block py-2 px-5 rounded-md my-4'>See More</button>
             </div>
-            <div className='cart-container col-span-1 hidden md:block ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[360px]'>
-                <ShoppingCart selectedCartProducts={selectedCartProducts}/>
+            <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[360px] order-1 md:order-2 mb-4 md:my-0 '>
+                <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts}/>
             </div>
         </div>
     );

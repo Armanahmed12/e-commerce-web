@@ -20,13 +20,13 @@ const Header = () => {
     }),[showLinks]);
 
     return (
-        <nav ref={navTag} className={`flex justify-between items-center px-4 py-3 bg-[#1c2b35] ${showLinks && 'fixed w-full'}`}>
+        <nav ref={navTag} className={`flex justify-between items-center px-4 py-3 sticky top-0 w-full md:mb-5 bg-[#1c2b35] ${showLinks && 'fixed w-full'}`}>
             <img src={logo} alt="" />
               {
                  showLinks ? <RxCross2 onClick={()=> setShowlinks(!showLinks)} className='text-white md:hidden text-2xl'/> :
                  <FaBars onClick={()=> setShowlinks(!showLinks)} className='text-white md:hidden text-2xl'/>
               }
-             <ul className={`md:flex ${showLinks ? 'block' : 'hidden'} justify-center md:justify-end items-center gap-5 text-white absolute md:static left-0 top-[67px] bg-[#1c2b35] w-full text-center font-bold`}>
+             <ul className={`md:flex ${showLinks ? 'block' : 'hidden'} justify-center md:justify-end items-center gap-5 text-white absolute md:static left-0 top-[67px] bg-[#1c2b35] w-full md:h-auto h-[100vh]  text-center font-bold`}>
                 <li><a href="#">Order</a></li>
                 <li><a href="#">Order Review</a></li>
                 <li><a href="#">Manage Inventory</a></li>
