@@ -16,7 +16,7 @@ const ShoppingCart = (props) => {
             selectedProductItems = selectedProductItems + selectedProducts[i]["quantity"];
             totalPrice = totalPrice + (selectedProducts[i]["price"] * selectedProducts[i]["quantity"]);
             totalShippingCharge = totalShippingCharge + (selectedProducts[i]["shipping"] * selectedProducts[i]["quantity"]);
-            tax = tax + (selectedProducts[i]["price"] / 100) * 10;
+            tax = tax + ( totalPrice / 100) * 10;
             grandTotal = grandTotal + totalPrice + totalShippingCharge + tax;
             console.log(grandTotal);
     }
