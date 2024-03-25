@@ -16,8 +16,8 @@ const Product = (props) => {
      }),[]);
       
     return (
-        <div className='border-2 border-solid border-[#1c2b35] h-[470px] rounded-lg flex flex-col'>
-            <img ref={imgRef} className='p-2 rounded-2xl' src={img} alt="" />
+        <div className='border-2 border-solid border-[#1c2b35] md:h-[370px] h-[470px] rounded-lg flex flex-col'>
+            <img ref={imgRef} className='p-2 rounded-2xl md:h-3/6 h-3/5' src={img} alt="" />
             <div className='px-2 pb-3 flex-1'>
                 <h2 className='font-bold text-[#037ac9]'>{name}</h2>
                 <h4 className='font-medium'>Price : ${price}</h4>

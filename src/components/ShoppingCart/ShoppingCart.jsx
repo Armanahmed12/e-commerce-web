@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 const ShoppingCart = (props) => {
 
     // function for deleting  the cart data.
-    const deleteTheCartData = props.removeTheCartData;
+    const deleteTheCartData = props?.removeTheCartData;
 
     const selectedProducts = props.selectedCartProducts;
     let selectedProductItems = 0;
@@ -13,7 +13,7 @@ const ShoppingCart = (props) => {
     let totalShippingCharge = 0;
     let tax = 0;
     let grandTotal = 0;
-    for(let i = 0; i < selectedProducts.length;i++){
+    for(let i = 0; i < selectedProducts?.length;i++){
             
     
             selectedProductItems = selectedProductItems + selectedProducts[i]["quantity"];

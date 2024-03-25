@@ -1,5 +1,5 @@
 // here, we are setting a spesific product id to localStorage
-const setShoppingProduct = (id) => {
+const setShoppingProduct = (id,deleteAnPdWithId= false) => {
 
     let shoppingCart = [];
 
@@ -16,6 +16,17 @@ const setShoppingProduct = (id) => {
              if(id in shoppingCart[i]) {
 
                 shoppingCart[i][id] = shoppingCart[i][id] + 1;
+                // delete an item of shopping cart by the Id
+                if(deleteAnPdWithId){
+                   
+                     const indexOfElement = shoppingCart.indexOf(shoppingCart[i]);
+                       shoppingCart.splice(indexOfElement, 1);
+                      if(shoppingCart == false){
+                         
+                           localStorage.removeItem('shoppingCart');
+                           return;
+                      }
+                }
                  localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
                    return;
             }
@@ -34,28 +45,37 @@ const setShoppingProduct = (id) => {
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
 }
 
-// here, we are deleting a spesific localStorage Item.
+// here, we are deleting the shopping-cart.
 const deleteShoppingCart = () =>{
 
         localStorage.removeItem('shoppingCart');
 }
 
-// finding out all the products which can pass a spesific condition
+// finding out all the products which can pass a spesific condition for sending selected products
+
 const getAllSelectedProducts = (allProducts) =>{
- 
+  
     let allSelectedProductsId = localStorage.getItem('shoppingCart');
     allSelectedProductsId = JSON.parse(allSelectedProductsId);
     let selectedProducts = [];
 
-    for(let i = 0; i < allSelectedProductsId.length; i++){
+    for(let i = 0; i < allSelectedProductsId?.length; i++){
 
       const selectedProductId = Object.keys(allSelectedProductsId[i])[0];
         let matchedProduct = allProducts.find(eachProduct => eachProduct.id == selectedProductId);
-        matchedProduct.quantity = allSelectedProductsId[i][matchedProduct.id];
+        matchedProduct.quantity = allSelectedProductsId[i][matchedProduct?.id];
         selectedProducts.push(matchedProduct);
 
     }
       return selectedProducts;
 };
 
-export { setShoppingProduct, getAllSelectedProducts ,deleteShoppingCart};
+// Delete a spesific product with it's id
+const deleteProductWithIdFromDataBase = (id) =>{
+
+  let allSelectedProductsId = localStorage.getItem('shoppingCart');
+  allSelectedProductsId = JSON.parse(allSelectedProductsId);
+  let selectedProducts = [];
+}
+
+export { setShoppingProduct, getAllSelectedProducts ,deleteShoppingCart,deleteProductWithIdFromDataBase};
