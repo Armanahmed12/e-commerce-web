@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { getAllSelectedProducts, setShoppingProduct } from '../../utilities/shop';
+import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -63,7 +65,7 @@ const Shop = () => {
             </div>
             <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[420px] order-1 md:order-2 mb-4 md:my-0 '>
                 
-                     <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts} />
+                     <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts}> <Link to={'/order-review'}> <button className='bg-orange-500 w-full rounded-md text-xl py-2 flex justify-center items-center gap-3'>Review Order<FaArrowRight/> </button></Link></ShoppingCart>
                 
             </div>
         </div>

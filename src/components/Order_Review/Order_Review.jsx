@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
-import { deleteProductWithIdFromDataBase, getAllSelectedProducts, setShoppingProduct } from '../../utilities/shop';
-import { useLoaderData } from 'react-router-dom';
+import { getAllSelectedProducts, setShoppingProduct } from '../../utilities/shop';
+import { Link, useLoaderData } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
+import { FaMoneyBill } from 'react-icons/fa';
 
 const Order_Review = () => {
 
@@ -42,7 +43,7 @@ const Order_Review = () => {
                     {
                         selectedCartProducts.map(eachCartProduct => <div key={eachCartProduct.id} style={{boxShadow:'0px 0px 3px 0.5px red'}} className='flex flex-col md:flex-row justify-between items-center p-2 border-[0.5px] border-solid border-red-400 rounded-lg mt-1'>
                             <div className='md:flex items-center gap-3 w-full'>
-                                <img src={eachCartProduct.img} className='md:w-[125px] w-full h-[230px] md:h-[130px] rounded-lg' alt="" />
+                                <img src={eachCartProduct.img} className='md:w-[125px] w-full h-[290px] md:h-[130px] rounded-lg' alt="" />
                                 <div className='my-4 md:my-0'>
                                     <h2 className='font-bold text-lg text-[#1c2b35]'>{eachCartProduct.name}</h2>
                                     <h3 className='font-semibold'>Price : <span className='text-orange-500 font-bold'>${eachCartProduct.price}</span></h3>
@@ -59,7 +60,9 @@ const Order_Review = () => {
             </div>
 
             <div className='cart-container md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold h-[420px] order-1 md:order-2 mb-4 md:my-0'>
-                <ShoppingCart selectedCartProducts={selectedCartProducts} removeTheCartData={removeTheCartData} />
+                <ShoppingCart selectedCartProducts={selectedCartProducts} removeTheCartData={removeTheCartData}>
+                <Link to={'/proceed_checkout'}><button className='bg-orange-500 w-full rounded-md text-xl py-2 flex justify-center items-center gap-3'>Proceed Checkout<FaMoneyBill/> </button></Link>
+                </ShoppingCart>
             </div>
         </div>
     );

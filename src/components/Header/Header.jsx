@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 const Header = () => {
    const navTag = useRef('nav-tag');
    let [showLinks, setShowlinks] = useState(false);
-    console.log(showLinks);
 
    useEffect((() => {
 

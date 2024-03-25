@@ -26,6 +26,11 @@ const router = createBrowserRouter([
         element: <Order_Review/>,
         loader: () => fetch('products.json')
       },
+      
+      {
+         path: '/proceed_checkout',
+         element : <h2>proceed_checkout</h2>
+      },
     
       {
          path : '/login',

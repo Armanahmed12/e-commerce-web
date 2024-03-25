@@ -1,9 +1,11 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 
 const ShoppingCart = (props) => {
-
+  
+     console.log(props.children);
     // function for deleting  the cart data.
     const deleteTheCartData = props?.removeTheCartData;
 
@@ -34,7 +36,7 @@ const ShoppingCart = (props) => {
                 <p>Tax : <span>${ Number.isInteger(tax) ? tax : tax.toFixed(2)}</span></p>
                 <p>Grand Total : <span>${ Number.isInteger(grandTotal) ? grandTotal : grandTotal.toFixed(2)}</span></p>
                 <button onClick={deleteTheCartData} className='bg-red-500 w-full  rounded-md text-xl py-2 text-center mt-8 mb-3  flex justify-center items-center gap-3'>clear Cart <RiDeleteBin6Fill /></button>
-                <button className='bg-orange-500 w-full rounded-md text-xl py-2 flex justify-center items-center gap-3'>Review Order<FaArrowRight/> </button>
+               {props.children}
         </div>
     );
 };
