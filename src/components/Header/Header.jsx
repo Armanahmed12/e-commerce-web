@@ -1,19 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Header.css';
 import logo from '../../images/Logo.svg';
 import { FaBars } from 'react-icons/fa';
 import { RxCross2 } from "react-icons/rx";
 import { Link } from 'react-router-dom';
-// bg-[#1c2b35]
+import { AuthenticationData } from '../../inforProviders/AuthInfoProvider';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
    const navTag = useRef('nav-tag');
    let [showLinks, setShowlinks] = useState(false);
+   const {user,setUser,userLogOut} = useContext(AuthenticationData);
 
    useEffect((() => {
 
       if (showLinks) {
-         navTag.current.parentNode.parentNode.setAttribute('class', 'fixed w-full');
+         navTag.current.parentNode.parentNode.setAttribute('class', 'fixed md:static w-full');
       } else {
 
          navTag.current.parentNode.parentNode.removeAttribute('class');
@@ -21,8 +24,22 @@ const Header = () => {
 
    }), [showLinks]);
 
+   const handleUserLogOut = () =>{
+
+      userLogOut()
+      .then(()=>{
+
+         console.log("finished")
+         toast.success("User has logged out.");
+         setUser(null);
+
+     }).catch(()=>{})
+        
+   };
+
    return (
       <nav className={`md:flex md:justify-between md:items-center md:bg-[#1c2b35]`}>
+         
          <div ref={navTag} className={`px-4 flex justify-between items-center py-3 sticky top-0  bg-[#1c2b35] md:bg-[#1c2b35] z-10`}>
             <img src={logo} alt="" />
             {
@@ -34,7 +51,10 @@ const Header = () => {
             <li onClick={() => setShowlinks(!showLinks)} className='pt-5 md:pt-0'><Link to="/">Home</Link></li>
             <li onClick={() => setShowlinks(!showLinks)} ><Link onClick={() => setShowlinks(!showLinks)} to="/order-review">Order Review</Link></li>
             <li onClick={() => setShowlinks(!showLinks)}><Link to="#">Manage Inventory</Link></li>
-            <li onClick={() => setShowlinks(!showLinks)}><Link to="/login" id='last-li'>Login</Link></li>
+            {
+                user ? <li onClick={() => setShowlinks(!showLinks)}><Link onClick={handleUserLogOut} id='last-li'>Log Out</Link></li> : <><li onClick={() => setShowlinks(!showLinks)}><Link to="/login" id='last-li'>Login</Link></li>  <li onClick={() => setShowlinks(!showLinks)}><Link to="/register" id='last-li'>Register</Link></li></>
+            }
+            <ToastContainer/>
          </ul>
       </nav>
    );

@@ -8,40 +8,50 @@ import './index.css'
 import Home from './components/Home/Home.jsx';
 import Shop from './components/Shop/Shop.jsx';
 import Order_Review from './components/Order_Review/Order_Review.jsx';
+import Register from './layouts/Register/Register.jsx';
+import LogIn from './layouts/LogIn/LogIn.jsx';
+import AuthInfoProvider from './inforProviders/AuthInfoProvider.jsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
-    children : [
+    element: <Home />,
+    children: [
 
-      {     
-         path: '/',
-         element: <Shop/>,
+      {
+        path: '/',
+        element: <Shop />,
       },
 
       {
         path: '/order-review',
-        element: <Order_Review/>,
+        element: <Order_Review />,
         loader: () => fetch('products.json')
       },
-      
+
       {
-         path: '/proceed_checkout',
-         element : <h2>proceed_checkout</h2>
+        path: '/proceed_checkout',
+        element: <h2>proceed_checkout</h2>
       },
-    
+
       {
-         path : '/login',
-         element : <div>Log In</div>
+        path: '/login',
+        element: <LogIn />
+      },
+
+      {
+        path: '/register',
+        element: <Register />
       }
-  ]
+    ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthInfoProvider>
+      <RouterProvider router={router} />
+    </AuthInfoProvider>
   </React.StrictMode>,
 )

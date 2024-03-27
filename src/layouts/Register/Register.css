@@ -1,0 +1,54 @@
+:root {
+    --blue: #1c2b35;
+    --white: #faf0e6;
+    --background: #1c2b35;
+}
+
+#register-compo{
+
+      color: var(--blue);
+      font-size: 1.2rem;
+}
+
+label {
+
+     text-align: left !important;
+     font-weight: 600;
+     width: 100%;
+     display: inline-block;
+}
+
+input {
+     
+     border: 1.4px solid gray;
+     padding: 5px;
+     border-radius: 4px;
+     
+     width: 100%;
+}
+
+input[type='submit'] {
+
+     background-color: var(--background);
+     font-weight: bold;
+     color: var(--white);
+}
+
+input[type='submit']:hover{
+
+       background-color: #000000ee;
+       transition: 0.4s;
+}
+
+button{
+
+     background-color: #016b6b;
+     color: white;
+     font-weight: 500;
+}
+
+button:hover{
+
+    background-color: #014343;
+    transition: 0.4s;
+}
