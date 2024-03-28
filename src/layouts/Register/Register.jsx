@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import '../Register/Register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,7 @@ import { sendEmailVerification } from 'firebase/auth';
 
 const Register = () => {
 
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const { setUser, createNewUser, createUserWithGoogle, userInfoUndate } = useContext(AuthenticationData);
 
@@ -31,7 +32,6 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         const confirmPasword = form.confirmPassword.value;
-        console.log(userName, confirmPasword, password, email);
 
         const passWordValidation = /(?=(.*\d){1})(?=(.*[A-Z]){1})(?=(.*[~!@#$%^&*()]){1}).{6,}/.test(password);
 
@@ -51,24 +51,29 @@ const Register = () => {
             return;
         }
 
-        // password's characters validation and creating a user
-        if (passWordValidation) {
+        // password's characters validation and creating a user with password and eamil.
 
-            console.log(true);
+        if (passWordValidation) {
+            
             createNewUser(email, password)
                 .then(result => {
-                    console.log(result.user);
+                   
                     sendEmailVerification(result.user).then(() => {
-                        console.log('done')
+                     
                     }).catch(error => console.log(error.message));
                     userInfoUndate(userName);
-                    console.log("cool man")
                     setUser(result.user);
+                    form.reset();
                     notify(userName);
+                    navigate('/')
+                    
                 }).catch(error => {
 
-                    console.log(error);
-                    toast.error(`${error.message}`);
+                    toast.error(`${error}`,{
+
+                         position : 'top-center'
+                    });
+
                 })
 
         } else {
@@ -88,18 +93,23 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 notify(result.user.displayName);
+                setUser(result.user);
+                navigate('/');
             }).catch(error => {
 
-                console.log(error.message);
-                toast.error(`${error.message}`)
+                console.log(error);
+                toast.error(`${error.message}`, {
+
+                      position : "top-center"
+                })
             })
     }
 
     return (
         <div id='register-compo' className='md:m-8 mx-3 my-8'>
          
-            <div style={{ boxShadow: '0px 0px 5px 1px black' }} className='lg:w-2/5 md:w-3/4 mx-auto text-center p-4 rounded-md'>
-                <h2 className='font-semibold text-3xl font-serif pb-5 text-[#6d0183]'>Sign Up</h2>
+            <div style={{ boxShadow: '0px 0px 5px 1px black'}} className='lg:w-2/5 md:w-3/4 mx-auto text-center p-4 rounded-md'>
+                <h2 style={{textShadow:'2px 2px 1px blue',letterSpacing:'3px'}}  className='font-semibold text-3xl font-serif pb-5 text-[#d10096]'>Sign Up</h2>
                 <form onSubmit={handleSignUp}>
 
                     <div className="form-control mb-3">
@@ -126,7 +136,7 @@ const Register = () => {
                         <input type={open ? 'text' : 'password'} name="confirmPassword" id="confirmPaswFiled" placeholder='Confirm your password' autoComplete='off' required />
                     </div>
 
-                    <input className='bg-[red] mt-5 text-white fw-bold' type="submit" value="Sign Up" />
+                    <input className='bg-[red] mt-5 text-white fw-bold hover:cursor-pointer' type="submit" value="Sign Up" />
                     <h2>Already have an account?<Link className='text-blue-600 underline font-xl' to={'/login'}> Login</Link></h2>
                 </form>
 
@@ -136,7 +146,7 @@ const Register = () => {
                     <hr className='border-1 w-full border-gray-500' />
                 </div>
 
-                <button onClick={signUpWithGoogle} className='lg:w-fit md:2/4 w-fultext-white fw-bold mt-3 p-2 rounded flex items-center gap-2 mx-auto'> <FaGoogle /> Continue with Google</button>
+                <button onClick={signUpWithGoogle} className='lg:w-fit md:2/4 w-fultext-white fw-bold mt-3 p-2 rounded flex items-center gap-2 mx-auto hover:cursor-pointer'> <FaGoogle /> Continue with Google</button>
             </div>
         </div>
     );

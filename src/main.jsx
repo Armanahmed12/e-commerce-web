@@ -11,6 +11,8 @@ import Order_Review from './components/Order_Review/Order_Review.jsx';
 import Register from './layouts/Register/Register.jsx';
 import LogIn from './layouts/LogIn/LogIn.jsx';
 import AuthInfoProvider from './inforProviders/AuthInfoProvider.jsx';
+import PrivateRoute from './routes/PrivateRoute.jsx';
+import CheckOut from './components/CheckOut/CheckOut.jsx';
 
 
 const router = createBrowserRouter([
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
 
       {
         path: '/proceed_checkout',
-        element: <h2>proceed_checkout</h2>
+        element: <PrivateRoute><CheckOut/></PrivateRoute>
       },
 
       {

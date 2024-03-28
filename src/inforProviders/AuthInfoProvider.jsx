@@ -5,7 +5,8 @@ export const AuthenticationData = createContext();
 
 const AuthInfoProvider = ({children}) => {
 
-     const [user, setUser] = useState("raju");
+     const [user, setUser] = useState(null);
+     const [loading, setLoading] = useState(true);
     const auth = getAuth(app);
 
     //  user log In
@@ -61,20 +62,21 @@ const AuthInfoProvider = ({children}) => {
    }
 
   // observing the user after log In Or registering
+  console.log(user);
   useEffect(()=>{
     
     const  unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
 
            setUser(currentUser);
+           setLoading(false);
+           console.log(currentUser);
     });
 
     return () => unsubscribe();
 
-  },[]);
-  
-  console.log(user);
+  },[user]);
 
-    const authInfo = {user,setUser,createNewUser,createUserWithGoogle,userLogIn, userInfoUndate, resetPassword, userLogOut};
+    const authInfo = {user,setUser, loading, createNewUser,createUserWithGoogle,userLogIn, userInfoUndate, resetPassword, userLogOut};
     return (
         <AuthenticationData.Provider value={authInfo}>
               {children}

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const ShoppingCart = (props) => {
   
-     console.log(props.children);
     // function for deleting  the cart data.
     const deleteTheCartData = props?.removeTheCartData;
 
