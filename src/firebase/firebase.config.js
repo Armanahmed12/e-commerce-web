@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDXfDqZvYmqX3kIAs-mwDvYN6lBBo4PnCM",
-  authDomain: "learning-authentication-d3374.firebaseapp.com",
-  projectId: "learning-authentication-d3374",
-  storageBucket: "learning-authentication-d3374.appspot.com",
-  messagingSenderId: "149827572849",
-  appId: "1:149827572849:web:0a51a8f27018d0a6a6f7d0"
+  apiKey: "AIzaSyDpLy-EgcWHyKWlbgFRKFxLrZ0tIfBQuWI",
+  authDomain: "simple-e-commerce-web.firebaseapp.com",
+  projectId: "simple-e-commerce-web",
+  storageBucket: "simple-e-commerce-web.appspot.com",
+  messagingSenderId: "991109574635",
+  appId: "1:991109574635:web:76e5704f464e7700ebf3ae"
 };
 
 // Initialize Firebase
