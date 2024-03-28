@@ -47,7 +47,7 @@ button{
      font-weight: 500;
 }
 
-button:hover{
+#register-compo button:hover{
 
     background-color: #014343;
     transition: 0.4s;

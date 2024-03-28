@@ -44,7 +44,7 @@ const Header = () => {
    return (
       <nav className={`md:flex md:justify-between md:items-center md:bg-[#1c2b35]`}>
          
-         <div ref={navTag} className={`px-4 flex justify-between items-center py-3 sticky top-0  bg-[#1c2b35] md:bg-[#1c2b35] z-10`}>
+         <div ref={navTag} className={`px-4 flex justify-between items-center py-3 sticky top-0  bg-[#1c2b35] md:bg-[#1c2b35] z-30`}>
             <img src={logo} alt="" />
             {
                showLinks ? <RxCross2 onClick={() => setShowlinks(!showLinks)} className='text-white md:hidden text-2xl' /> :
@@ -56,7 +56,10 @@ const Header = () => {
             <li onClick={() => setShowlinks(!showLinks)} ><Link onClick={() => setShowlinks(!showLinks)} to="/order-review">Order Review</Link></li>
             <li onClick={() => setShowlinks(!showLinks)}><Link to="#">Manage Inventory</Link></li>
             {
-                user ? <div ><li className='flex items-center gap-2 border-[1px] p-2 rounded-md hover:bg-black' onClick={() => setShowlinks(!showLinks)}> <Link onClick={handleUserLogOut} id='last-li'>Log Out</Link><FaUser className='mx-auto'/></li></div> : <><li onClick={() => setShowlinks(!showLinks)}><Link to="/login" id='last-li'>Login</Link></li>  <li onClick={() => setShowlinks(!showLinks)}><Link to="/register" id='last-li'>Register</Link></li></>
+                user ? <li className='flex justify-center items-center md:mx-1 lg:mx-0 mx-4 mt-2 md:mt-0 gap-2 border-[1px] p-2 rounded-md hover:bg-black' onClick={() =>{
+                  setShowlinks(!showLinks)
+                   handleUserLogOut()
+                }}> <Link id='last-li'>Log Out</Link><FaUser className='md:mx-auto m-0 p-0'/></li> : <><li onClick={() => setShowlinks(!showLinks)}><Link to="/login" id='last-li'>Login</Link></li>  <li onClick={() => setShowlinks(!showLinks)}><Link to="/register" id='last-li'>Register</Link></li></>
             }
             <ToastContainer/>
          </ul>
