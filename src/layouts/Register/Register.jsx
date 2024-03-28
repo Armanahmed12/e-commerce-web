@@ -54,24 +54,24 @@ const Register = () => {
         // password's characters validation and creating a user with password and eamil.
 
         if (passWordValidation) {
-            
+
             createNewUser(email, password)
                 .then(result => {
-                   
+
                     sendEmailVerification(result.user).then(() => {
-                     
+
                     }).catch(error => console.log(error.message));
                     userInfoUndate(userName);
                     setUser(result.user);
                     form.reset();
                     notify(userName);
                     navigate('/')
-                    
+
                 }).catch(error => {
 
-                    toast.error(`${error}`,{
+                    toast.error(`${error}`, {
 
-                         position : 'top-center'
+                        position: 'top-center'
                     });
 
                 })
@@ -100,16 +100,16 @@ const Register = () => {
                 console.log(error);
                 toast.error(`${error.message}`, {
 
-                      position : "top-center"
+                    position: "top-center"
                 })
             })
     }
 
     return (
         <div id='register-compo' className='md:m-8 mx-3 my-8'>
-         
-            <div style={{ boxShadow: '0px 0px 5px 1px black'}} className='lg:w-2/5 md:w-3/4 mx-auto text-center p-4 rounded-md'>
-                <h2 style={{textShadow:'2px 2px 1px blue',letterSpacing:'3px'}}  className='font-semibold text-3xl font-serif pb-5 text-[#d10096]'>Sign Up</h2>
+
+            <div style={{ boxShadow: '0px 0px 5px 1px black' }} className='lg:w-2/5 md:w-3/4 mx-auto text-center p-4 rounded-md'>
+                <h2 style={{ textShadow: '2px 2px 1px blue', letterSpacing: '3px' }} className='font-semibold text-3xl font-serif pb-5 text-[#d10096]'>Sign Up</h2>
                 <form onSubmit={handleSignUp}>
 
                     <div className="form-control mb-3">
@@ -120,18 +120,24 @@ const Register = () => {
                         <label htmlFor="emailField">Email : </label><br />
                         <input type="email" name="email" id="emailField" placeholder='Write your email' required />
                     </div>
-                    <div className="form-control my-3">
+
+                    <div className="form-control mt-3">
                         <label htmlFor="passwordFiled">Password : </label><br />
-                        <div className='relative'>
-                            <input type={open ? 'text' : 'password'} name="password" id="passwordFiled" placeholder='Write your password' autoComplete='off' required />
+                        {/* dfdfdfdf */}
+                        <div className='password-field'>
+
+                            <input className='border-0 outline-0' type={open ? 'text' : 'password'} name="email" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
+
                             {
-                                 open ? <FaEye onClick={()=>setOpen(!open)} className='absolute bottom-[25%] right-2 text-red-500' /> :    <FaEyeSlash 
-                                 onClick={()=>setOpen(!open)} className='absolute bottom-[25%] right-2 text-red-500' />
+                                open ?
+                                    <FaEye onClick={() => setOpen(!open)} className='eye-icon text-red-500 text-3xl' />
+                                              :
+                                    <FaEyeSlash onClick={() => setOpen(!open)} className='eye-icon text-red-500 text-4xl' />
                             }
                         </div>
-                        
                     </div>
-                    <div className="form-control">
+
+                    <div className="form-control mt-3">
                         <label htmlFor="confirmPaswFiled">Confirm Password : </label><br />
                         <input type={open ? 'text' : 'password'} name="confirmPassword" id="confirmPaswFiled" placeholder='Confirm your password' autoComplete='off' required />
                     </div>

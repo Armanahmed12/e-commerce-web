@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthenticationData } from '../../inforProviders/AuthInfoProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import '../LogIn/LogIn.css'
 
 const LogIn = () => {
 
@@ -12,7 +12,7 @@ const LogIn = () => {
      const emailRef = useRef('eamil-ref');
      const location = useLocation();
      let navigate = useNavigate();
-     const {user,setUser,userLogIn,resetPassword,createUserWithGoogle} = useContext(AuthenticationData);
+     const {navBarIconCliked,user,setUser,userLogIn,resetPassword,createUserWithGoogle} = useContext(AuthenticationData);
  
      let from = location.state?.from?.pathname || "/";
 
@@ -102,15 +102,28 @@ const LogIn = () => {
                    
                     <div className="form-control mt-3">
                         <label htmlFor="passwordFiled">Password : </label><br />
-                        <div className='relative'>
-                            <input type={open ? 'text' : 'password'} name="password" id="passwordFiled" placeholder='Write your password' autoComplete='off' required />
+                        {/* dfdfdfdf */}
+                     <div className='password-field'>
+
+                            <input className='border-0 outline-0' type={open ? 'text' : 'password'} name="email" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
+
                             {
-                                 open ? <FaEye onClick={()=>setOpen(!open)} className='absolute bottom-[25%] right-2 text-red-500' /> :    <FaEyeSlash 
-                                 onClick={()=>setOpen(!open)} className='absolute bottom-[25%] right-2 text-red-500' />
+                                 open ?
+                                 
+                                 <FaEye onClick={()=>setOpen(!open)} className='eye-icon text-red-500 text-3xl' /> 
+                                 
+                                 
+                                 :  
+                                 
+                                 <FaEyeSlash onClick={()=>setOpen(!open)} className='eye-icon text-red-500 text-4xl' /> 
+                                 
+                              
                             }
-                        </div>
+
+                </div>
                         <h2 onClick={resetUserPassword} className='text-base text-right underline font-semibold text-blue-700 hover:cursor-pointer'>Forgot passwod?</h2>
-                    </div>         
+                    </div>  
+
                     <input className='bg-[red] mt-5 text-white fw-bold hover:cursor-pointer' type="submit" value="Log in" />
                     <h2>New to Ema-john? <Link className='text-blue-600 underline font-xl' to={'/register'}>Create New Account</Link></h2>
                 </form>
@@ -122,6 +135,7 @@ const LogIn = () => {
                 </div>
 
                 <button onClick={signUpWithGoogle} className='lg:w-fit md:2/4 w-fultext-white fw-bold mt-3 p-2 rounded flex items-center gap-2 mx-auto hover:cursor-pointer'> <FaGoogle /> Continue with Google</button>
+
             </div>
         </div>
     );

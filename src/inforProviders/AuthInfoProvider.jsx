@@ -5,9 +5,10 @@ export const AuthenticationData = createContext();
 
 const AuthInfoProvider = ({children}) => {
 
+     const [navBarIconCliked, setNavBarIconClicked]  = useState(false);
      const [user, setUser] = useState(null);
      const [loading, setLoading] = useState(true);
-    const auth = getAuth(app);
+     const auth = getAuth(app);
 
     //  user log In
     const userLogIn = (email,password) =>{
@@ -76,7 +77,7 @@ const AuthInfoProvider = ({children}) => {
 
   },[user]);
 
-    const authInfo = {user,setUser, loading, createNewUser,createUserWithGoogle,userLogIn, userInfoUndate, resetPassword, userLogOut};
+    const authInfo = {navBarIconCliked,setNavBarIconClicked, user,setUser, loading, createNewUser,createUserWithGoogle,userLogIn, userInfoUndate, resetPassword, userLogOut};
     return (
         <AuthenticationData.Provider value={authInfo}>
               {children}

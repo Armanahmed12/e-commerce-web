@@ -1,0 +1,35 @@
+input[type='email']:focus-visible,input[type='text']:focus-visible, [type='text']:focus-visible,#confirmPaswFiled:focus-visible{
+
+    outline: 2px solid #d6c800;
+}
+
+.password-field:focus-within{
+
+    outline: 2px solid #d6c800;
+}
+
+.password-field {
+    display: flex;
+    align-items: center;
+    border: 1.4px solid gray; /* Example border style, adjust as needed */
+    border-radius: 5px; /* Example border radius, adjust as needed */
+    padding-right: 8px; /* Adjust as needed to make space for the icon */
+}
+
+.password-field:focus-visible{
+
+      color:red;
+}
+
+.password-field input[type="email"] {
+    flex: 1;
+    border: none;
+    outline: none; /* Remove default input outline */
+    padding: 5px; /* Adjust as needed */
+}
+
+.eye-icon {
+    cursor: pointer; /* Ensure cursor changes to pointer on hover */
+    padding: 5px; /* Adjust as needed for icon size */
+   /* Example border style, adjust as needed */
+}
