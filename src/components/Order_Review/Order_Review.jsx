@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
-import { getAllSelectedProducts, setShoppingProduct } from '../../utilities/shop';
+import {setShoppingProduct } from '../../utilities/shop';
 import { Link, useLoaderData } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 import { FaMoneyBill } from 'react-icons/fa';
@@ -10,12 +10,24 @@ const Order_Review = () => {
     // selected cart products state
     const [selectedCartProducts, setSelectedCartProducts] = useState([]);
 
-    // all products for fltering the selected products
-    const allProducts = useLoaderData();
     // selected Shopping-Cart products
     useEffect(()=>{
-        const cartProducts = getAllSelectedProducts(allProducts);
-        setSelectedCartProducts(cartProducts);
+        
+        let allSelectedProductsId = localStorage.getItem('shoppingCart');
+        allSelectedProductsId = JSON.parse(allSelectedProductsId);
+        console.log(allSelectedProductsId);
+        fetch('http://localhost:3500/selectedCartProducts', {
+
+            method: 'POST',
+            headers: {
+
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(allSelectedProductsId)
+        })
+            .then(res => res.json())
+            .then(data => setSelectedCartProducts(data));
+
     },[])
 
     // this function will delete all the cart Component data and make an empty cart.
@@ -34,7 +46,8 @@ const Order_Review = () => {
            setSelectedCartProducts(cartProducts);
         //    delele from localStorage
         setShoppingProduct(id, true);
-   }    
+   }   
+
     return (
         <div className='grid grid-cols-1 md:grid-cols-3 md:p-5 p-2'>
             <div className='md:col-span-2 col-span-3'>

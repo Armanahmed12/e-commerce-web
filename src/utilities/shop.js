@@ -53,25 +53,6 @@ const deleteShoppingCart = () => {
   localStorage.removeItem('shoppingCart');
 }
 
-// finding out all the products which can pass a spesific condition for sending selected products
-
-const getAllSelectedProducts = (allProducts) => {
-
-  let allSelectedProductsId = localStorage.getItem('shoppingCart');
-  allSelectedProductsId = JSON.parse(allSelectedProductsId);
-  let selectedProducts = [];
-
-  for (let i = 0; i < allSelectedProductsId?.length; i++) {
-
-    const selectedProductId = Object.keys(allSelectedProductsId[i])[0];
-    let matchedProduct = allProducts.find(eachProduct => eachProduct._id == selectedProductId);
-    matchedProduct.quantity = allSelectedProductsId[i][matchedProduct?._id];
-    selectedProducts.push(matchedProduct);
-
-  }
-  return selectedProducts;
-};
-
 // Delete a spesific product with it's id
 const deleteProductWithIdFromDataBase = (id) => {
 
@@ -80,4 +61,4 @@ const deleteProductWithIdFromDataBase = (id) => {
   let selectedProducts = [];
 }
 
-export { setShoppingProduct, getAllSelectedProducts, deleteShoppingCart, deleteProductWithIdFromDataBase };
+export { setShoppingProduct, deleteShoppingCart, deleteProductWithIdFromDataBase };

@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         path: '/order-review',
         element: <Order_Review />,
-        loader: () => fetch('http://localhost:3500/products')
+
       },
 
       {
