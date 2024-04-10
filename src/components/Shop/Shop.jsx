@@ -18,11 +18,14 @@ const Shop = () => {
     const pagesNum = [...Array(totalPages).keys()]
     pagesNum.shift()
 
-    const updateProductsCart = () => {
+    const updateProductsCart = async() => {
 
         let allSelectedProductsId = localStorage.getItem('shoppingCart');
         allSelectedProductsId = JSON.parse(allSelectedProductsId);
-        fetch('http://localhost:3500/selectedCartProducts', {
+        if(!allSelectedProductsId){
+            return;
+        }
+      const res = await  fetch('http://localhost:3500/selectedCartProducts', {
 
             method: 'POST',
             headers: {
@@ -30,17 +33,20 @@ const Shop = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(allSelectedProductsId)
-        })
-            .then(res => res.json())
-            .then(data => setSelectedCartProducts(data));
+        });
+       const data = await res.json();
+       console.log(data);
+       setSelectedCartProducts(data)
 
     }
 
+
     useEffect(() => {
+
         fetch('http://localhost:3500/products/pageInfo?pageNum=1&limit=6')
             .then(res => res.json())
-            .then(data => setProducts(data))
-            updateProductsCart()
+            .then(data => setProducts(data));
+           
     }, []);
 
     // products for Rendering

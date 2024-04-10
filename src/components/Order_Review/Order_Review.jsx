@@ -15,7 +15,6 @@ const Order_Review = () => {
         
         let allSelectedProductsId = localStorage.getItem('shoppingCart');
         allSelectedProductsId = JSON.parse(allSelectedProductsId);
-        console.log(allSelectedProductsId);
         fetch('http://localhost:3500/selectedCartProducts', {
 
             method: 'POST',
