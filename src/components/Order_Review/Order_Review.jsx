@@ -12,7 +12,6 @@ const Order_Review = () => {
 
     // all products for fltering the selected products
     const allProducts = useLoaderData();
-
     // selected Shopping-Cart products
     useEffect(()=>{
         const cartProducts = getAllSelectedProducts(allProducts);
@@ -31,7 +30,7 @@ const Order_Review = () => {
 
    const removeTheProduct = (id) =>{
 
-           const cartProducts = selectedCartProducts.filter(eachSelectedCartPd => eachSelectedCartPd.id !== id);
+           const cartProducts = selectedCartProducts.filter(eachSelectedCartPd => eachSelectedCartPd._id !== id);
            setSelectedCartProducts(cartProducts);
         //    delele from localStorage
         setShoppingProduct(id, true);
@@ -41,7 +40,7 @@ const Order_Review = () => {
             <div className='md:col-span-2 col-span-3'>
                 <div className='grid grid-cols-1 gap-5 mb-4'>
                     {
-                        selectedCartProducts.map(eachCartProduct => <div key={eachCartProduct.id} style={{boxShadow:'0px 0px 3px 0.5px red'}} className='flex flex-col md:flex-row justify-between items-center p-2 border-[0.5px] border-solid border-red-400 rounded-lg mt-1'>
+                        selectedCartProducts.map(eachCartProduct => <div key={eachCartProduct._id} style={{boxShadow:'0px 0px 3px 0.5px red'}} className='flex flex-col md:flex-row justify-between items-center p-2 border-[0.5px] border-solid border-red-400 rounded-lg mt-1'>
                             <div className='md:flex items-center gap-3 w-full'>
                                 <img src={eachCartProduct.img} className='md:w-[125px] w-full h-[290px] md:h-[130px] rounded-lg' alt="" />
                                 <div className='my-4 md:my-0'>
@@ -51,7 +50,7 @@ const Order_Review = () => {
                                 </div>
                             </div>
                              
-                             <span style={{boxShadow:'0px 0px 4px 0.5px red'}} className='border-[0.2px] border-solid border-red-500 inline-block p-3 my-3 md:my-0 rounded-full bg-red-50 hover:bg-red-100 hover:cursor-pointer' onClick={()=>removeTheProduct(eachCartProduct.id)}>
+                             <span style={{boxShadow:'0px 0px 4px 0.5px red'}} className='border-[0.2px] border-solid border-red-500 inline-block p-3 my-3 md:my-0 rounded-full bg-red-50 hover:bg-red-100 hover:cursor-pointer' onClick={()=>removeTheProduct(eachCartProduct._id)}>
                                <MdDelete className='text-red-500 text-3xl'/>
                              </span>
                         </div>)

@@ -63,14 +63,14 @@ const AuthInfoProvider = ({children}) => {
    }
 
   // observing the user after log In Or registering
-  console.log(user);
+
   useEffect(()=>{
     
     const  unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
 
            setUser(currentUser);
            setLoading(false);
-           console.log(currentUser);
+  
     });
 
     return () => unsubscribe();

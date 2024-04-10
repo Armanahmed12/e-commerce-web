@@ -33,3 +33,9 @@ input[type='email']:focus-visible,input[type='text']:focus-visible, [type='text'
     padding: 5px; /* Adjust as needed for icon size */
    /* Example border style, adjust as needed */
 }
+
+#passwordFiled{
+
+     border: 0 !important;
+     outline: 0 !important;
+}

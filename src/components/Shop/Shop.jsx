@@ -2,26 +2,40 @@ import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { getAllSelectedProducts, setShoppingProduct } from '../../utilities/shop';
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Shop = () => {
+ 
+    const [pageNum, setPageNum] = useState(1);
     const [products, setProducts] = useState([]);
+    const [productsToRender, setProductsToRender] = useState([]);
     const [selectedCartProducts, setSelectedCartProducts] = useState([]);
 
-    // The products that will be rendered with the button("seeMore").
-    let [showAllProducts, setShowAllProducts] = useState(false);
+    const totalProductsNumber = useLoaderData();
+    const totalPages = Math.ceil(totalProductsNumber.totalProducts / 6);
+    const pagesNum = [...Array(totalPages).keys()]
+    pagesNum.shift()
+
+
     useEffect(() => {
-        fetch('products.json')
+        fetch('http://localhost:3500/products')
             .then(res => res.json())
             .then(data => setProducts(data))
     }, []);
+  // products for Rendering
+    useEffect(()=>{
 
-    // initial six products that will be rendered first time   
-    const sixProducts = products.slice(0, 6);
+        if(pageNum == 1){
+            
+             setProductsToRender(products.slice(0,6));
+             console.log(productsToRender);
+        }
+        
+    },[pageNum,products]);
 
-//  initail cart Data for redering
+    //  initial cart Data for rendering
     useEffect((() => {
 
         if (products.length > 1) {
@@ -31,17 +45,17 @@ const Shop = () => {
 
     }), [products]);
 
-    // a function which will be exicuted with Product's(component) button for adding an modifying the selected products.
+    // a function which will be  with Product's(component) button for adding an modifying the selected products.
 
     const getTheClickedProduct = (id) => {
 
         setShoppingProduct(id);
         const selectedCartProducts = getAllSelectedProducts(products);
         setSelectedCartProducts(selectedCartProducts);
-         toast.success("Added product",{
+        toast.success("Added product", {
 
-              position : 'top-center'
-         })
+            position: 'top-center'
+        })
 
     }
 
@@ -52,26 +66,44 @@ const Shop = () => {
         localStorage.removeItem('shoppingCart');
 
     }
-    return (
-        <div className='grid grid-cols-4 md:p-5 p-2'>
-            <div className="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 col-span-4 md:col-span-3 order-2 md:order-1">
 
-                {
-                    sixProducts.map(product => <Product getTheProduct={getTheClickedProduct} key={product.id} product={product} />)
-                }
-                {
-                    showAllProducts && products.slice(6, [products.length]).map(product => <Product getTheProduct={getTheClickedProduct} key={product.id} product={product} />)
-                }
-                <button onClick={(event) => {
-                    setShowAllProducts(!showAllProducts);
-                    event.target.style.display = 'none';
-                }} className='bg-[#1c2b35] hover:bg-[#024774] font-bold text-white text-center mx-auto md:w-1/5 w-2/5 md:col-span-3 inline-block py-2 px-5 rounded-md my-4'>See More</button>
+    // load data based on specific page number with
+    const loadDataBasedOnPageNum = (perPageNum) =>{
+
+        
+          setPageNum(parseInt(perPageNum));
+          fetch(`http://localhost:3500/products/pageInfo?pageNum=${perPageNum}&limit=${6}`)
+          .then(res => res.json())
+          .then(data => setProductsToRender(data))
+    }
+  
+    return (
+        <div>
+            <div className='grid grid-cols-4 md:p-5 p-2'>
+                <div className="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 col-span-4 md:col-span-3 order-2 md:order-1">
+
+                    {
+                        productsToRender.map(product => <Product getTheProduct={getTheClickedProduct}
+                            key={product._id} product={product} />)
+                    }
+                  
+                </div>
+                <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[420px] order-1 md:order-2 mb-4 md:my-0 '>
+
+                    <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts}> <Link to={'/order-review'}> <button className='bg-orange-500 w-full rounded-md text-xl py-2 flex justify-center items-center gap-3'>Review Order<FaArrowRight /> </button></Link></ShoppingCart>
+                    <ToastContainer className={"m-4"} />
+                </div>
             </div>
-            <div className='cart-container md:col-span-1 col-span-4  md:ml-4 rounded-xl bg-[#1c2b35] text-white p-3 font-semibold  h-[420px] order-1 md:order-2 mb-4 md:my-0 '>
-                
-                     <ShoppingCart removeTheCartData={removeTheCartData} selectedCartProducts={selectedCartProducts}> <Link to={'/order-review'}> <button className='bg-orange-500 w-full rounded-md text-xl py-2 flex justify-center items-center gap-3'>Review Order<FaArrowRight/> </button></Link></ShoppingCart>
-                <ToastContainer className={"m-4"}/>
+
+            {/* pagination */}
+            <div className='mx-auto text-center my-3'>
+            <button className='text-white bg-red-500 font-bold rounded-sm border-2 border-solid border-red-600 px-4 py-2 mr-2'>&laquo;</button>
+                {
+                      pagesNum.map(eachPageNum => <button onClick={()=>loadDataBasedOnPageNum(eachPageNum)} key={eachPageNum} className={`${(pageNum == eachPageNum) ? 'bg-red-500 text-white':'bg-white'} text-black rounded-sm border-2 border-solid border-red-600 px-4 py-2 mr-2`}>{eachPageNum}</button>)
+                }
+              <button className=' text-white bg-red-500 font-bold rounded-sm border-2 border-solid border-red-600 px-4 py-2 mr-2'>  &raquo; </button>
             </div>
+         
         </div>
     );
 };

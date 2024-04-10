@@ -32,14 +32,16 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         const confirmPasword = form.confirmPassword.value;
-
+    
         const passWordValidation = /(?=(.*\d){1})(?=(.*[A-Z]){1})(?=(.*[~!@#$%^&*()]){1}).{6,}/.test(password);
 
         //    passwod length is checking
         if (password.length < 6) {
 
+            alert("make biger your length")
             toast.error('Password must be more than 5 characters.');
             return;
+            
         }
 
         // password and comfirm password are being checked for confirming that both are the same psw.
@@ -91,7 +93,7 @@ const Register = () => {
 
         createUserWithGoogle()
             .then(result => {
-                console.log(result.user);
+              
                 notify(result.user.displayName);
                 setUser(result.user);
                 navigate('/');
@@ -107,7 +109,7 @@ const Register = () => {
 
     return (
         <div id='register-compo' className='md:m-8 mx-3 my-8'>
-
+                <ToastContainer/>
             <div style={{ boxShadow: '0px 0px 5px 1px black' }} className='lg:w-2/5 md:w-3/4 mx-auto text-center p-4 rounded-md'>
                 <h2 style={{ textShadow: '2px 2px 1px blue', letterSpacing: '3px' }} className='font-semibold text-3xl font-serif pb-5 text-[#d10096]'>Sign Up</h2>
                 <form onSubmit={handleSignUp}>
@@ -123,10 +125,10 @@ const Register = () => {
 
                     <div className="form-control mt-3">
                         <label htmlFor="passwordFiled">Password : </label><br />
-                        {/* dfdfdfdf */}
+                       
                         <div className='password-field'>
 
-                            <input className='border-0 outline-0' type={open ? 'text' : 'password'} name="email" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
+                            <input style={{outline:"0!important"}} className='border-0' type={open ? 'text' : 'password'} name="password" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
 
                             {
                                 open ?

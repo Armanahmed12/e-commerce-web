@@ -12,7 +12,7 @@ const LogIn = () => {
      const emailRef = useRef('eamil-ref');
      const location = useLocation();
      let navigate = useNavigate();
-     const {navBarIconCliked,user,setUser,userLogIn,resetPassword,createUserWithGoogle} = useContext(AuthenticationData);
+     const {userLogIn,setUser,resetPassword,createUserWithGoogle} = useContext(AuthenticationData);
  
      let from = location.state?.from?.pathname || "/";
 
@@ -22,6 +22,7 @@ const LogIn = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+
         userLogIn(email,password)
         .then(userCredential =>{
              
@@ -35,7 +36,7 @@ const LogIn = () => {
                       form.reset();
                       setUser(userCredential.user);
                       navigate(from, { replace: true });
-                      console.log(user);
+                   
               }else{
 
                 toast.error(`Sorry! This email was not verified in the past. So, please check your gamil inbox and confirm the verification of eamil.`, {
@@ -61,7 +62,7 @@ const LogIn = () => {
 
         createUserWithGoogle()
             .then(result => {
-                console.log(result.user);
+
                 toast.success(`${result.user?.displayName || "User"} has has logged in perfectly.`);
                 setUser(result.user);
                 navigate(from, { replace: true });
@@ -102,10 +103,10 @@ const LogIn = () => {
                    
                     <div className="form-control mt-3">
                         <label htmlFor="passwordFiled">Password : </label><br />
-                        {/* dfdfdfdf */}
+                       
                      <div className='password-field'>
 
-                            <input className='border-0 outline-0' type={open ? 'text' : 'password'} name="email" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
+                     <input className='' type={open ? 'text' : 'password'} name="password" id="passwordFiled" placeholder='Write your email' autoComplete='off' required />
 
                             {
                                  open ?

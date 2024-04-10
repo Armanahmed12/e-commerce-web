@@ -29,7 +29,6 @@ const Header = () => {
       userLogOut()
       .then(()=>{
 
-          console.log("successful");
           toast.success(`User has logged out successfully.`, {
 
              position: "top-center"

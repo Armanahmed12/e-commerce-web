@@ -6,15 +6,19 @@ const Product = (props) => {
     // function prop from shopping component
     const getTheProduct = props.getTheProduct;
     const imgRef = useRef('img-ref');
-    const x = props.product;
-    const { name, seller, price, ratings, img, id } = props.product;
-
-     useEffect((()=>{
-          imgRef.current.onerror = function(){
-            imgRef.current.parentNode.style.display = 'none';     
-          };
-     }),[]);
-      
+    const { name, seller, price, ratings, img, _id } = props.product;
+  
+   
+    //  useEffect((()=>{
+     
+    //       imgRef.current.onerror = function(){ 
+             
+    //             imgRef.current.parentNode.style.display = 'none';
+    //             num = num + 1;  
+    //       };
+         
+    //  }),[]);
+    
     return (
         <div className='border-2 border-solid border-[#1c2b35] md:h-[370px] h-[470px] rounded-lg flex flex-col'>
             <img ref={imgRef} className='p-2 rounded-2xl md:h-3/6 h-3/5' src={img} alt="" />
@@ -25,7 +29,7 @@ const Product = (props) => {
                 <h6>Rating : {ratings} stars</h6>
                
             </div>
-            <button onClick={()=>getTheProduct(id)} className='bg-[#1c2b35] hover:bg-[#024774] font-semibold text-white w-full py-2 flex justify-center items-center gap-3'>Add to Cart <FaShoppingCart/></button>
+            <button onClick={()=>getTheProduct(_id)} className='bg-[#1c2b35] hover:bg-[#024774] font-semibold text-white w-full py-2 flex justify-center items-center gap-3'>Add to Cart <FaShoppingCart/></button>
         </div>
     );
 };
