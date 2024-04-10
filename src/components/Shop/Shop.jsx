@@ -46,7 +46,7 @@ const Shop = () => {
         fetch('http://localhost:3500/products/pageInfo?pageNum=1&limit=6')
             .then(res => res.json())
             .then(data => setProducts(data));
-           
+           updateProductsCart()
     }, []);
 
     // products for Rendering
